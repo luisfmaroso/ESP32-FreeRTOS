@@ -1,0 +1,10 @@
+# Target: regular ESP32 (dual-core, WiFi/BT variant)
+CONFIG_IDF_TARGET="esp32"
+
+# 1000 Hz tick -> 1 ms tick period (IDF default is 100 Hz -> 10 ms).
+# With a 10 ms tick every delay in the project quantizes to 10 ms steps and
+# any pdMS_TO_TICKS() argument under 10 ms truncates to 0 ticks. A 1 ms tick
+# makes the 30/50/200/500/1000 ms periods used here exact and is the usual
+# choice for responsive control loops. Cost: 10x more tick interrupts —
+# negligible at 240 MHz.
+CONFIG_FREERTOS_HZ=1000
